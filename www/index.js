@@ -1,9 +1,9 @@
+import {Sudoku} from "sudoku-gen";
+import {memory} from "sudoku-gen/sudoku_bg.wasm"
 
-import { MyList } from "my-wasm";
-import { memory } from "my-wasm/my_wasm_bg.wasm";
-
-let list = MyList.new([9,8,7,4,5,6,3,2,1]);
-list.sort();
-let grid_ptr = list.get_grid();
-let grid = new Uint8Array(memory.buffer, grid_ptr, list.get_size());
+let s = Sudoku.new_for_test();
+const g_ptr = s.get_grid_ptr();
+let grid = new Uint8Array(memory.buffer, g_ptr, 81);
+console.log(grid);
+s.solve(0);
 console.log(grid);

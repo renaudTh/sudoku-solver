@@ -1,8 +1,18 @@
-struct Sudoku {
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen]
+pub struct Sudoku {
     size: u8,
     grid: Vec<u8>,
 }
 
+impl Sudoku{
+    pub fn get_coordinates(&self, index: u8) -> (u8, u8) {
+        ((index / self.size), (index % self.size))
+    }
+}
+
+#[wasm_bindgen]
 impl Sudoku {
     pub fn new(existing_grid: Vec<u8>) -> Sudoku {
         Sudoku {
@@ -20,7 +30,13 @@ impl Sudoku {
             ],
         }
     }
-
+    pub fn get_grid_ptr(&self) -> *const u8 {
+        self.grid.as_ptr()
+    }
+    pub fn set(&mut self, row:u8, col:u8, value: u8) {
+        let index = self.get(row, col);
+        self.grid[index as usize] = value;
+    }
     pub fn create_empty(size: u8) -> Sudoku {
         Sudoku {
             size: size * size,
@@ -71,9 +87,7 @@ impl Sudoku {
         let sqrt_s = (self.size as f64).sqrt() as u8;
         (k / sqrt_s) * sqrt_s * self.size + sqrt_s * (k % sqrt_s)
     }
-    pub fn get_coordinates(&self, index: u8) -> (u8, u8) {
-        ((index / self.size), (index % self.size))
-    }
+
     pub fn is_valid(&self, row: u8, col: u8, value: u8) -> bool {
         self.grid[self.get(row, col) as usize] == 0
             && self.check_row(row, value)
@@ -168,5 +182,3 @@ mod tests {
         s.print();
     }
 }
-
-fn main() {}

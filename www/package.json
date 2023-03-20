@@ -3,6 +3,7 @@
     "serve": "webpack-dev-server"
   },
   "dependencies": {
+    "sudoku-gen": "file:../sudoku/pkg",
     "my-wasm": "file:../my-wasm/pkg",
     "webpack": "^5.76.2",
     "webpack-cli": "^5.0.1",
