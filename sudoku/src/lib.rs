@@ -20,6 +20,12 @@ impl Sudoku {
             grid: Vec::from(existing_grid),
         }
     }
+    pub fn new_empty(size: u8) -> Sudoku {
+        Sudoku {
+            size,
+            grid: vec![0;(size as usize) * (size as usize)]
+        }
+    }
     pub fn new_for_test() -> Sudoku {
         Sudoku {
             size: 9,
@@ -42,6 +48,9 @@ impl Sudoku {
             size: size * size,
             grid: vec![0; size as usize],
         }
+    }
+    pub fn get_size(&self) -> u8{
+        self.size
     }
     pub fn get(&self, row: u8, col: u8) -> u8 {
         row * self.size + col
