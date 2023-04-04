@@ -67,7 +67,7 @@ impl Sudoku {
     }
     pub fn check_column(&self, col: u8, value: u8) -> bool {
         let mut k = col;
-        while k < col + self.size * (self.size - 1) {
+        while k < col + self.size * self.size {
             if self.grid[k as usize] == value {
                 return false;
             }
@@ -188,6 +188,5 @@ mod tests {
     fn solve_test() {
         let mut s: Sudoku = Sudoku::new_for_test();
         assert!(s.solve(0));
-        s.print();
     }
 }
